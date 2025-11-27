@@ -19,8 +19,9 @@ public class jugadoragarrarlanza : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickupRange))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickupRange, 10))
         {
+            Debug.Log(hit.collider.gameObject);
             if (hit.collider.CompareTag("Weapon"))
             {
                 hit.collider.GetComponent<agarrarlanza>().PullToHand(weaponHolder);
