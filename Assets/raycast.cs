@@ -1,48 +1,89 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
 
 public class raycast : MonoBehaviour
 {
-    private agentnav agentScript;
-    float RaycastDistancia = 5f;
+    NavMeshAgent agent;
+    [SerializeField] Vector3 rayOrigin;
+    [SerializeField] Transform sightOrigin;
+    [SerializeField] float rayDistance = 10f;
+    [SerializeField] Transform[] puntosDePatru;
+    [SerializeField] raycast rayVision;
+    [SerializeField] bool Patrulaje = true;
+    int puntoActual = 0;
+    [SerializeField] Transform Jugador;
+    [SerializeField] Animator anim;
+    [SerializeField] float velocity;
+    float tiempoVision = 0f;
+    [SerializeField] float tiempoOlvido = 2f;
 
-    void Start()
+
+
+    // Start is called before the first frame update
+    void Awake()
     {
-        agentScript = GetComponent<agentnav>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        bool JugadorDetectado = false;
-
-        Debug.DrawRay(transform.position, transform.forward * RaycastDistancia, Color.red);
-
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, RaycastDistancia))
+        if (!agent.pathPending && agent.remainingDistance < 0.3f && puntosDePatru.Length > 0)
         {
-            if (hitInfo.collider.gameObject.tag == "Player")
+            puntoActual = (puntoActual + 1) % puntosDePatru.Length;
+            agent.destination = puntosDePatru[puntoActual].position;
+        }
+        else
+        {
+            if (!Patrulaje)
             {
-                agentScript.patrullando = false;
-                agentScript.jugadorEnVision = true;
-                agentScript.tiempoSinVision = 0;
-                JugadorDetectado = true;
+                agent.destination = Jugador.position;
+            }
+
+
+            tiempoVision += Time.deltaTime;
+            if (tiempoVision >= tiempoOlvido)
+            {
+                Patrulaje = true;
+                Jugador = null;
+                tiempoVision = 0f;
             }
         }
+        velocity = agent.velocity.magnitude;
+        anim.SetFloat("Speed", velocity);
 
-        if (!JugadorDetectado)
-        {
-            agentScript.jugadorEnVision = false;
-        }
+        Ray ray = new Ray(sightOrigin.position, sightOrigin.forward);
+        RaycastHit hit;
 
-        if (!agentScript.jugadorEnVision && !agentScript.patrullando)
+        if (Physics.Raycast(ray, out hit, rayDistance))
         {
-            agentScript.tiempoSinVision += (int)(Time.deltaTime * 100);
-            Debug.Log(agentScript.tiempoSinVision);
-            if (agentScript.tiempoSinVision >= 500)
+            if (hit.collider.gameObject.tag == "Jugador")
             {
-                agentScript.patrullando = true;
-                agentScript.tiempoSinVision = 0;
+                Jugador = hit.collider.transform;
+                Debug.Log("Detectó a: " + hit.collider.gameObject.name);
+                Patrulaje = false;
+                tiempoVision = 0f;
             }
         }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Jugador"))
+        {
+            SceneManager.LoadScene("Mensaje");
+        }
+    }
+
+
+
+    void OnDrawGizmos()
+    {
+        Color color = Color.red;
+        Gizmos.color = color;
+        Gizmos.DrawLine(sightOrigin.position, sightOrigin.position + sightOrigin.forward * rayDistance);
     }
 }
