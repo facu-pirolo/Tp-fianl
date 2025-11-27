@@ -9,7 +9,6 @@ public class agentnav : MonoBehaviour
 {
     UnityEngine.AI.NavMeshAgent agent;
     [SerializeField] Transform targetTR;
-    [SerializeField] Animator anim;
     [SerializeField] float velocity;
     [SerializeField] Transform[] Puntos;
     public bool patrullando = true;
@@ -45,7 +44,7 @@ public class agentnav : MonoBehaviour
             agent.SetDestination(jugador.transform.position);
         }
         velocity = agent.velocity.magnitude;
-        anim.SetFloat("Speed", velocity);
+        
     }
 
     public void OnTriggerEnter(Collider other)
