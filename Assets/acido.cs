@@ -12,7 +12,7 @@ public class acido : MonoBehaviour
     {
         if (other.collider.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Perdiste");
+            SceneManager.LoadScene("GameOver");
         }
 
         Destroy(gameObject);

@@ -5,12 +5,12 @@ using UnityEngine;
 public class raycast : MonoBehaviour
 {
     private agentnav agentScript;
-float RaycastDistancia = 5f;
+float RaycastDistancia = 10f;
     public Rigidbody balaPrefab;
     public Transform puntoDisparo;
     public float fuerzaDisparo = 500f;
 
-    private float tiempoEntreDisparos = 1f;
+    private float tiempoEntreDisparos = 0.5f;
     private float contadorDisparo = 0f;
     void Start()
 {

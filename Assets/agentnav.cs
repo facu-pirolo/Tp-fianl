@@ -52,7 +52,7 @@ public class agentnav : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Perdiste");
+            SceneManager.LoadScene("GameOver");
         }
     }
 }
