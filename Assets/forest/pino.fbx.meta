@@ -1,30 +1,26 @@
 fileFormatVersion: 2
-guid: cac1b9fc305ba674b897eb2a52c4e7bd
+guid: c57b79f6f02271540a61c9ab30d97737
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Circle.046
-    100002: Circle.047
-    100004: Cylinder.469
-    100006: //RootNode
-    400000: Circle.046
-    400002: Circle.047
-    400004: Cylinder.469
-    400006: //RootNode
-    2100000: Material.005
-    2100002: Material.015
-    2100004: Material.014
-    2300000: Circle.046
-    2300002: Circle.047
-    2300004: Cylinder.469
-    3300000: Circle.046
-    3300002: Circle.047
-    3300004: Cylinder.469
-    4300000: Cylinder.469
-    4300002: Circle.046
-    4300004: Circle.047
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Material.001
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Cylinder
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 269f48b4ff25d2147aaba6bbe0af24b5, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: palette2-gradient (1)
+    second: {fileID: 2800000, guid: 4fcbd89eddc9b314fb50405a6556198b, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

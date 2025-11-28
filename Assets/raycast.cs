@@ -10,7 +10,7 @@ float RaycastDistancia = 10f;
     public Transform puntoDisparo;
     public float fuerzaDisparo = 500f;
 
-    private float tiempoEntreDisparos = 0.5f;
+    private float tiempoEntreDisparos = 0.25f;
     private float contadorDisparo = 0f;
     void Start()
 {
